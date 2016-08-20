@@ -10,17 +10,17 @@ import importlib.util
 import os
 import sys
 
-try:
-    virtenv = os.path.join(os.environ.get('OPENSHIFT_PYTHON_DIR','.'), 'virtenv')
-    python_version = "python"+str(sys.version_info[0])+"."+str(sys.version_info[1])
-    os.environ['PYTHON_EGG_CACHE'] = os.path.join(virtenv, 'lib', python_version, 'site-packages')
-    virtualenv = os.path.join(virtenv, 'bin','activate_this.py')
-    if sys.version_info[0] < 3:
-        execfile(virtualenv, dict(__file__=virtualenv))
-    else:
-        exec(open(virtualenv).read(), dict(__file__=virtualenv))
-except IOError:
-    pass
+#try:
+#    virtenv = os.path.join(os.environ.get('OPENSHIFT_PYTHON_DIR','.'), 'virtenv')
+#    python_version = "python"+str(sys.version_info[0])+"."+str(sys.version_info[1])
+#    os.environ['PYTHON_EGG_CACHE'] = os.path.join(virtenv, 'lib', python_version, 'site-packages')
+#    virtualenv = os.path.join(virtenv, 'bin','activate_this.py')
+#    if sys.version_info[0] < 3:
+#        execfile(virtualenv, dict(__file__=virtualenv))
+#    else:
+#        exec(open(virtualenv).read(), dict(__file__=virtualenv))
+#except IOError:
+#    pass
 
 #
 # IMPORTANT: Put any additional includes below this line.  If placed above this
@@ -31,13 +31,21 @@ except IOError:
 #
 #  main():
 #
+
 if __name__ == '__main__':
     application = importlib.machinery.SourceFileLoader('app', 'src/main.py').load_module()
-    application.app.config.from_pyfile('../config.cfg')
-    port = application.app.config['PORT']
-    ip = application.app.config['IP']
-    app_name = application.app.config['APP_NAME']
-    host_name = application.app.config['HOST_NAME']
+    
+    config_files = 'heroku_config.cfg','openshift_config.cfg','local_config.cfg'
+
+    for config in config_files:
+        application.app.config.from_pyfile('../%s'%(config) )
+        port = application.app.config['PORT']
+        ip = application.app.config['IP']
+        app_name = application.app.config['APP_NAME']
+        host_name = application.app.config['HOST_NAME']
+        if ip and app_name and host_name != '' and port != 0:
+            print('Using %s config file'%(config))
+            break
 
     fwtype="wsgiref"
     for fw in ("gevent", "cherrypy", "flask"):
