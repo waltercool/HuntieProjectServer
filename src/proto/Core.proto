@@ -1,0 +1,8 @@
+syntax = 'proto3';
+option java_package = 'cl.slash.huntie.domain.core';
+
+message Market {
+    int32   marketId = 1;
+    string  marketName = 2;
+    string  marketCodeName = 3;
+}

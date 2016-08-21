@@ -1,0 +1,13 @@
+syntax = 'proto3';
+option java_package = 'cl.slash.huntie.domain.request';
+import 'Core.proto';
+
+message Request {
+    string  sessionToken = 1;
+    string  deviceToken = 2;
+    string  userName = 3;
+}
+message MarketRequest {
+    Request request = 1;
+    int32   marketId = 2;
+}

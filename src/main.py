@@ -11,32 +11,32 @@ def test_alive():
 
 @app.route('/fetchMarkets', methods=['GET'])
 def fetch_markets():
-    return None
+    return 'Empty'
 
 
 @app.route('/fetchMarket', methods=['GET'])
 def fetch_market():
-    return None
+    return 'Empty'
 
 
 @app.route('/fetchShares', methods=['GET'])
 def fetch_shares():
-    return None
+    return 'Empty'
 
 
 @app.route('/fetchShare', methods=['GET'])
 def fetch_share():
-    return None
+    return 'Empty'
 
 
 @app.route('/bidShare', methods=['POST'])
 def bid_share():
-    return None
+    return 'Empty'
 
 
 @app.route('/retrieveShare', methods=['POST'])
 def retrieve_share():
-    return None
+    return 'Empty'
 
 
 if __name__ == '__main__':

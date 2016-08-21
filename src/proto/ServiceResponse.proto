@@ -1,0 +1,20 @@
+syntax = 'proto3';
+option java_package = 'cl.slash.huntie.domain.response';
+import 'Core.proto';
+
+message Response {
+    enum ResponseCodes {
+        OK = 0;
+        GENERIC_ERROR = 1;
+        NOT_ENOUGH_PARAMETERS = 2;
+        WRONG_VALUE = 3;
+        DATABASE_ERROR = 4;
+    }
+    string statusResponse = 1;
+    ResponseCodes codeStatus = 2;
+}
+
+message MarketResponse {
+    Response response = 1;
+    repeated Market listMarket = 2;
+}
