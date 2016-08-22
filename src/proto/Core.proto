@@ -2,7 +2,32 @@ syntax = 'proto3';
 option java_package = 'cl.slash.huntie.domain.core';
 
 message Market {
-    int32   marketId = 1;
-    string  marketName = 2;
-    string  marketCodeName = 3;
+    int32 id = 1;
+    string code = 2;    //Like IPSA instead Indice Precio Selectivo de Acciones
+    string name = 3;
+    repeated Stock stocks = 4;
+}
+
+message Stock {
+    int32 id = 1;
+    string code = 2;    //Like INTL instead INTEL
+    string name = 3;
+    float value = 4;    //Value with 2 decimals
+}
+
+message User {
+    int32 id = 1;
+    string username = 2;
+    string passwordToken = 3;
+    string email = 4;
+    string currentMoney = 5;
+}
+
+//Undestanding as all user invested Stocks.
+//Separated from User to avoid sending too much time the whole user data with token.
+message InvestedStock {
+    string marketCode = 1;
+    string stockCode = 2;
+    float stockShareAmount = 3; //Number of shares bought.
+    string stockTotalAmount = 4;  //Processed amount of stockValue x stockShareAmount
 }

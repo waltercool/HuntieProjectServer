@@ -5,12 +5,23 @@ import 'Core.proto';
 message Request {
     string sessionToken = 1;
     string deviceToken = 2;
-    string userName = 3;
+    User user = 3;
 }
-message MarketRequest {
-    Request request = 1;
-    Market market = 2;
-}
+
+// Request for fetchMarkets
 message MarketsRequest {
     Request request = 1;
+}
+
+// Request for fetchMarket
+message MarketRequest {
+    Request request = 1;
+    string marketCode = 2;
+}
+
+// Request for fetchStock
+message StockRequest {
+    Request request = 1;
+    string marketCode = 2;
+    string stockCode = 3;
 }

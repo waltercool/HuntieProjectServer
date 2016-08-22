@@ -14,7 +14,20 @@ message Response {
     ResponseCodes codeStatus = 2;
 }
 
+// Response for fetchMarkets
+message MarketsResponse {
+    Response response = 1;
+    repeated Market markets = 2;
+}
+
+// Response for fetchMarket
 message MarketResponse {
     Response response = 1;
-    repeated Market listMarket = 2;
+    Market market = 2;
+}
+
+// Response for fetchStock
+message StockResponse {
+    Response response = 1;
+    Stock stock = 2;
 }
